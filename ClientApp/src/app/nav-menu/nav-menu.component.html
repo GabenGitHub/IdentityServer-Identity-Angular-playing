@@ -37,9 +37,10 @@
               >Fetch data</a
             >
           </li>
-          <li class="nav-item">
-            <button class="btn btn-link" (click)="login()">Login</button>
-          </li>
+          <section> 
+            <button *ngIf="!isUserAuthenticated" class="btn btn-link" style="color:gray" (click)="login()">Login</button>
+            <button *ngIf="isUserAuthenticated" class="btn btn-link" style="color:gray" (click)="logout()">Logout</button> 
+          </section>
         </ul>
       </div>
     </div>
