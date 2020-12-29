@@ -17,6 +17,7 @@ export class AuthService {
     return {
       authority: Constants.idsAuthority,
       client_id: Constants.clientId,
+      client_secret: 'secret',
       redirect_uri: `${Constants.clisentRoot}/signin-callback`,
       scope: 'openid profile',
       response_type: 'code',

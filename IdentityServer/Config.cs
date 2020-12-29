@@ -20,8 +20,8 @@ namespace IdentityServer
         public static IEnumerable<ApiScope> ApiScopes =>
             new ApiScope[]
             {
-                new ApiScope("scope1"),
-                new ApiScope("scope2"),
+                // new ApiScope("scope1"),
+                // new ApiScope("scope2"),
             };
 
         public static IEnumerable<Client> Clients =>
@@ -35,47 +35,21 @@ namespace IdentityServer
 
                     AllowedGrantTypes = GrantTypes.Code,
 
-                    RedirectUris = new List<string>{ "https://localhost:5003/signin-callback", "https://localhost:5003/assets/silent-callback.html" },
+                    RedirectUris = { "https://localhost:5003/signin-callback" },
                     RequirePkce = true,
-                    AllowAccessTokensViaBrowser = true,
+                    // TODO Check this => AllowAccessTokensViaBrowser = true,
                     AllowedScopes =
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
                     },
                     AllowedCorsOrigins = { "https://localhost:5003" },
-                    RequireClientSecret = false,
-                    PostLogoutRedirectUris = new List<string>{ "https://localhost:5003/signout-callback" },
+                    RequireClientSecret = true,
+                    ClientSecrets = { new Secret("secret".Sha256()) },
+                    PostLogoutRedirectUris = { "https://localhost:5003/signout-callback" },
                     RequireConsent = false,
-                    AccessTokenLifetime = 600,
+                    AccessTokenLifetime = 3600 * 24,
                 },
-                // m2m client credentials flow client
-                // new Client
-                // {
-                //     ClientId = "m2m.client",
-                //     ClientName = "Client Credentials Client",
-
-                //     AllowedGrantTypes = GrantTypes.ClientCredentials,
-                //     ClientSecrets = { new Secret("511536EF-F270-4058-80CA-1C89C192F69A".Sha256()) },
-
-                //     AllowedScopes = { "scope1" }
-                // },
-
-                // interactive client using code flow + pkce
-                // new Client
-                // {
-                //     ClientId = "interactive",
-                //     ClientSecrets = { new Secret("49C1A7E1-0C79-4A89-A3D6-A37998FB86B0".Sha256()) },
-
-                //     AllowedGrantTypes = GrantTypes.Code,
-
-                //     RedirectUris = { "https://localhost:44300/signin-oidc" },
-                //     FrontChannelLogoutUri = "https://localhost:44300/signout-oidc",
-                //     PostLogoutRedirectUris = { "https://localhost:44300/signout-callback-oidc" },
-
-                //     AllowOfflineAccess = true,
-                //     AllowedScopes = { "openid", "profile", "scope2" }
-                // },
             };
     }
 }
