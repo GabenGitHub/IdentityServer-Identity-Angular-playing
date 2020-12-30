@@ -7,7 +7,8 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/Server/testNoAuth.csproj",
+                "${workspaceFolder}/IS4Empty/IS4Empty.csproj",
+                // "${workspaceFolder}/Server/testNoAuth.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -19,7 +20,8 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/Server/testNoAuth.csproj",
+                "${workspaceFolder}/IS4Empty/IS4Empty.csproj",
+                // "${workspaceFolder}/Server/testNoAuth.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -32,7 +34,8 @@
             "args": [
                 "watch",
                 "run",
-                "${workspaceFolder}/Server/testNoAuth.csproj",
+                "${workspaceFolder}/IS4Empty/IS4Empty.csproj",
+                // "${workspaceFolder}/Server/testNoAuth.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],

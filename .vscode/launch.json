@@ -10,9 +10,15 @@
             "request": "launch",
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/Server/bin/Debug/net5.0/testNoAuth.dll",
+            // ?Client server:
+            // "program": "${workspaceFolder}/Server/bin/Debug/net5.0/testNoAuth.dll",
+            // ?Identity server:
+            "program": "${workspaceFolder}/IS4Empty/bin/Debug/net5.0/IS4Empty.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/Server",
+            // ?Client server:
+            // "cwd": "${workspaceFolder}/Server",
+            // ?Identity server:
+            "cwd": "${workspaceFolder}/IS4Empty",
             "stopAtEntry": false,
             // Enable launching a web browser when ASP.NET Core starts. For more information: https://aka.ms/VSCode-CS-LaunchJson-WebBrowser
             "serverReadyAction": {
@@ -23,7 +29,10 @@
                 "ASPNETCORE_ENVIRONMENT": "Development"
             },
             "sourceFileMap": {
-                "/Views": "${workspaceFolder}/Server/Views"
+                // ?Client server:
+                // "/Views": "${workspaceFolder}/Server/Views"
+                // ?Identity server:
+                "/Views": "${workspaceFolder}/IS4Empty/Views"
             }
         },
         {
