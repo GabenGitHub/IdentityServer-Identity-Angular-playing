@@ -11,6 +11,7 @@ using Serilog;
 using Serilog.Events;
 using Serilog.Sinks.SystemConsole.Themes;
 using System;
+using System.Security.Claims;
 
 namespace IS4Empty
 {
@@ -40,6 +41,7 @@ namespace IS4Empty
                 Log.Information("Starting host...");
                 var host = CreateHostBuilder(args).Build();
                 
+                // Create users at start
                 using (var scope = host.Services.CreateScope())
                 {
                     var userManager = scope.ServiceProvider
@@ -47,6 +49,11 @@ namespace IS4Empty
 
                     var user = new ApplicationUser { UserName = "gaben" };
                     userManager.CreateAsync(user, "password").GetAwaiter().GetResult();
+                    userManager.AddClaimAsync(user, new Claim( "Role", "Admin" )).GetAwaiter().GetResult();
+
+                    var user2 = new ApplicationUser { UserName = "user" };
+                    userManager.CreateAsync(user2, "password").GetAwaiter().GetResult();
+                    userManager.AddClaimAsync(user2, new Claim( "Role", "User" )).GetAwaiter().GetResult();
                 }
                 
                 host.Run();

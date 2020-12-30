@@ -15,6 +15,11 @@ namespace IS4Empty
             { 
                 new IdentityResources.OpenId(),
                 new IdentityResources.Profile(),
+                new IdentityResource
+                {
+                    Name = "RoleScope",
+                    UserClaims = { "Role" }
+                }
             };
 
         public static IEnumerable<ApiScope> ApiScopes =>
@@ -34,11 +39,11 @@ namespace IS4Empty
 
                     RedirectUris = { "https://localhost:5003/signin-callback" },
                     RequirePkce = true,
-                    // TODO Check this => AllowAccessTokensViaBrowser = true,
                     AllowedScopes =
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
+                        "RoleScope"
                     },
                     AllowedCorsOrigins = { "https://localhost:5003" },
                     RequireClientSecret = true,
@@ -46,6 +51,10 @@ namespace IS4Empty
                     PostLogoutRedirectUris = { "https://localhost:5003/signout-callback" },
                     RequireConsent = false,
                     AccessTokenLifetime = 3600 * 24,
+                    // TODO Check this
+                    // AllowAccessTokensViaBrowser = true,
+                    // TODO Check refresh token on Angular side:
+                    AllowOfflineAccess = true,
                 },
             };
     }
