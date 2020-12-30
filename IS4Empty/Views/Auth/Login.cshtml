@@ -1,0 +1,17 @@
+@model LoginViewModel
+
+<form asp-controller="Auth" asp-action="Login" method="post">
+    <input type="hidden" asp-for="ReturnUrl"/>
+    <div>
+        <label asp-for="Username">Username</label>
+        <input placeholder="Username" asp-for="Username">
+    </div>
+    <div>
+        <label asp-for="Password">Password</label>
+        <input type="password" placeholder="Password" asp-for="Password">
+    </div>
+    <div>
+        <button type="submit">Sign In</button>
+    </div>
+</form>
+<a asp-controller="Auth" asp-action="Register" asp-route-returnUrl="@Model.ReturnUrl">Register</a>
