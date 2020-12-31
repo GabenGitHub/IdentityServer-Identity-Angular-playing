@@ -39,24 +39,7 @@ namespace IS4Empty
             try
             {
                 Log.Information("Starting host...");
-                var host = CreateHostBuilder(args).Build();
-                
-                // Create users at start
-                using (var scope = host.Services.CreateScope())
-                {
-                    var userManager = scope.ServiceProvider
-                        .GetRequiredService<UserManager<ApplicationUser>>();
-
-                    var user = new ApplicationUser { UserName = "gaben" };
-                    userManager.CreateAsync(user, "password").GetAwaiter().GetResult();
-                    userManager.AddClaimAsync(user, new Claim( "Role", "Admin" )).GetAwaiter().GetResult();
-
-                    var user2 = new ApplicationUser { UserName = "user" };
-                    userManager.CreateAsync(user2, "password").GetAwaiter().GetResult();
-                    userManager.AddClaimAsync(user2, new Claim( "Role", "User" )).GetAwaiter().GetResult();
-                }
-                
-                host.Run();
+                CreateHostBuilder(args).Build().Run();
                 return 0;
             }
             catch (Exception ex)
