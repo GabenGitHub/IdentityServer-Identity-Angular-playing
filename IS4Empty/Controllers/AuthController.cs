@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using IdentityServer4.Services;
 using IS4Empty.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -9,13 +10,31 @@ namespace IS4Empty.Controllers
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IIdentityServerInteractionService _interactionService;
 
         public AuthController(
             SignInManager<ApplicationUser> signInManager,
-            UserManager<ApplicationUser> userManager)
+            UserManager<ApplicationUser> userManager,
+            IIdentityServerInteractionService interactionService)
         {
             _userManager = userManager;
+            _interactionService = interactionService;
             _signInManager = signInManager;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Logout(string logoutId)
+        {
+            await _signInManager.SignOutAsync();
+
+            var logoutRequest = await _interactionService.GetLogoutContextAsync(logoutId);
+
+            if (string.IsNullOrEmpty(logoutRequest.PostLogoutRedirectUri))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            return Redirect(logoutRequest.PostLogoutRedirectUri);
         }
 
         [HttpGet]
@@ -27,8 +46,8 @@ namespace IS4Empty.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel vm)
         {
-            // check if the model is valid
-
+            // TODO check if the model is valid
+            
             var result = await _signInManager.PasswordSignInAsync(vm.Username, vm.Password, false, false);
 
             if (result.Succeeded)
@@ -37,10 +56,10 @@ namespace IS4Empty.Controllers
             }
             else if (result.IsLockedOut)
             {
-                // TODO: check
+                // TODO check
             }
 
-            return View();
+            return View(vm);
         }
 
         [HttpGet]
