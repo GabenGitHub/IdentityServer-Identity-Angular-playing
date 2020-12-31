@@ -12,11 +12,11 @@ export class HomeComponent implements OnInit {
   constructor(private _authService: AuthService) { }
 
   ngOnInit(): void {
-    this._authService.loginChanged
-    .subscribe(res => {
-      this.isUserAuthenticated = res;
-    });
+    this.getUser();
   }
 
-  public getUser = () => this._authService.getUser();
+  public getUser = async () => {
+    this.isUserAuthenticated = await this._authService.isAuthenticated();
+    return this._authService.getUser();
+  }
 }
