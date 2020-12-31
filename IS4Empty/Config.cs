@@ -15,11 +15,6 @@ namespace IS4Empty
             { 
                 new IdentityResources.OpenId(),
                 new IdentityResources.Profile(),
-                new IdentityResource
-                {
-                    Name = "RoleScope",
-                    UserClaims = { "Role" }
-                }
             };
 
         public static IEnumerable<ApiScope> ApiScopes =>
@@ -43,7 +38,6 @@ namespace IS4Empty
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
-                        "RoleScope"
                     },
                     AllowedCorsOrigins = { "https://localhost:5003" },
                     RequireClientSecret = true,

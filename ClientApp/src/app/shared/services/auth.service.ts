@@ -20,7 +20,7 @@ export class AuthService {
       client_id: Constants.clientId,
       client_secret: 'secret',
       redirect_uri: `${Constants.clisentRoot}/signin-callback`,
-      scope: 'openid profile RoleScope',
+      scope: 'openid profile',
       response_type: 'code',
       post_logout_redirect_uri: `${Constants.clisentRoot}/signout-callback`,
 
